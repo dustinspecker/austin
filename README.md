@@ -28,12 +28,16 @@ testSubject.testFunction.callCount;
 // => 0
 
 // Austin allows executing the function...
-testSubject.testFunction();
+testSubject.testFunction('green', 3, {x: ['seven']});
 // => 5
 
 // Austin tracks the number of times the spied function was called...
 testSubject.testFunction.callCount;
 // => 1
+
+// And the parameters passed to each call of the spied function
+testSubject.testFunction.calls[0];
+// => ['green', 3, {x: ['seven']}]
 
 // Austin can reset spy analytics...
 testSubject.testFunction.resetCount();
@@ -80,6 +84,10 @@ Executes the original function, while updating spy analytics such as call count.
 ### spiedFunction.callCount
 
 The number of times spiedFunction was executed.
+
+### spiedFunction.calls
+
+An array of parameters passed to each exectuion of Spied Function.
 
 ### spiedFunction.resetCount()
 

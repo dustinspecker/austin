@@ -80,6 +80,32 @@ describe('austin', () => {
       expect(typeof testSubject.test.restore).to.eql('function');
     });
 
+    it('should add empty calls list to Spied Function', () => {
+      austin.spy(testSubject, 'test');
+
+      expect(testSubject.test.calls).to.eql([]);
+    });
+
+    it('should store parameters passed to Spied Function', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test('hi');
+      testSubject.test(null, 1, {
+        x: {
+          y: 'hi'
+        }
+      });
+      testSubject.test();
+
+      expect(testSubject.test.calls[0]).to.eql(['hi']);
+      expect(testSubject.test.calls[1]).to.eql([null, 1, {
+        x: {
+          y: 'hi'
+        }
+      }]);
+      expect(testSubject.test.calls[2]).to.eql([]);
+    });
+
     it('should restore spied function to original function', () => {
       testSubject.test = function () {
         return 1;
@@ -89,6 +115,7 @@ describe('austin', () => {
       testSubject.test.restore();
 
       expect(testSubject.test()).to.eql(1);
+      expect(typeof testSubject.test.calls).to.eql('undefined');
       expect(typeof testSubject.test.callCount).to.eql('undefined');
       expect(typeof testSubject.test.restore).to.eql('undefined');
     });

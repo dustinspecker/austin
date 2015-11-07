@@ -30,8 +30,9 @@ module.exports = {
      *  - Increase callCount by 1
      * @return {*} - return value of original function
      */
-    obj[methodName] = function () {
+    obj[methodName] = function (...args) {
       obj[methodName].callCount++;
+      obj[methodName].calls.push(args);
       return originalFn();
     };
 
@@ -39,6 +40,11 @@ module.exports = {
      * Number of times obj[methodName] has been executed
      */
     obj[methodName].callCount = 0;
+
+    /**
+     * Stored parameters of each call to Spied Function
+     */
+    obj[methodName].calls = [];
 
     /**
      * Resets callCount to 0
