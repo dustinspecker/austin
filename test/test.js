@@ -174,6 +174,18 @@ describe('austin', () => {
       expect(testSubject.test('hi')).to.eql('bye');
       expect(testSubject.test('austin')).to.eql('powers');
       expect(testSubject.test()).to.eql(undefined);
+      expect(testSubject.test('dog')).to.eql(undefined);
+    });
+
+    it('should return Spied Function when returns is called', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test.returns('bye')
+        .withArgs(['austin']).returns('powers');
+
+      expect(testSubject.test()).to.eql('bye');
+      expect(testSubject.test('austin')).to.eql('powers');
+      expect(testSubject.test('dog')).to.eql('bye');
     });
 
     it('should restore spied function to original function', () => {

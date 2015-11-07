@@ -56,13 +56,17 @@ testSubject.test('austin');
 // => 'powers'
 
 // And supports chaining withArgs and returns
-testSubject.test
+testSubject.test.returns('Groovy!')
   .withArgs(['austin']).returns('powers')
   .withArgs(['oooo']).returns('behave');
+testSubject.test();
+// => 'Groovy!'
 testSubject.test('austin');
 // => 'powers'
 testSubject.test('oooo');
 // => 'behave'
+testSubject.test('Dr. Evil');
+// => 'Groovy!'
 
 // Austin can reset spy analytics...
 testSubject.testFunction.reset();
@@ -136,7 +140,9 @@ Restores the spiedFunction to its original function and removes all spy utilitie
 
 ### spiedFunction.returns(value)
 
-When Spied Function is called, it will return `value` instead of executing the original function.
+Returns spiedFunction for easy chaining with [withArgs](https://github.com/dustinspecker/austin#spiedfunctionwithargsparams).
+
+When spiedFunction is called, it will return `value` instead of executing the original function.
 
 #### value
 

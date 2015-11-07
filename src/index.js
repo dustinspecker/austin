@@ -96,9 +96,12 @@ module.exports = {
     /**
      * Set return value of Spied Function to value
      * @param {*} value - a value to return when Spied Function is executed
+     * @return {Object} - Spied Function is returned for easy chaining
      */
     obj[methodName].returns = function (value) {
       returnValue = value;
+
+      return obj[methodName];
     };
 
     /**
