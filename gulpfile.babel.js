@@ -26,7 +26,9 @@ gulp.task('clean', () => del(destDir));
 
 gulp.task('alex', () => {
   return gulp.src('./README.md')
-    .pipe(alex({fail: true}));
+    .pipe(alex())
+    .pipe(alex.reporter())
+    .pipe(alex.reporter('fail'));
 });
 
 gulp.task('lint', ['alex'], () => {
