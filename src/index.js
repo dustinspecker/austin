@@ -9,7 +9,7 @@ module.exports = {
    * @param {*} methodName - obj[methodName] must be a function and will be spied on
    */
   spy(obj, methodName) {
-    let originalFn;
+    let originalFn, returnValue;
 
     if (obj === null || obj === undefined) {
       throw new TypeError('Expected obj to not be null or undefined');
@@ -34,7 +34,8 @@ module.exports = {
     obj[methodName] = function (...args) {
       obj[methodName].callCount++;
       obj[methodName].calls.push(args);
-      return originalFn();
+
+      return returnValue || originalFn();
     };
 
     /**
@@ -80,6 +81,14 @@ module.exports = {
      */
     obj[methodName].restore = function () {
       obj[methodName] = originalFn;
+    };
+
+    /**
+     * Set return value of Spied Function to value
+     * @param {*} value - a value to return when Spied Function is executed
+     */
+    obj[methodName].returns = function (value) {
+      returnValue = value;
     };
   }
 };

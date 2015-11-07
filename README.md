@@ -45,6 +45,11 @@ testSubject.testFunction.calledWith(['green', 3, {x: ['seven']}]);
 testSubject.testFunction.calledWith(['blue']);
 // => false
 
+// And can intercept the return value of the Spied Function
+testSubject.test.returns('a fake value');
+testSubject.test();
+// => 'a fake value'
+
 // Austin can reset spy analytics...
 testSubject.testFunction.reset();
 testSubject.testFunction.callCount;
@@ -114,6 +119,16 @@ Resets spiedFunction.callCount to 0 and spiedFunction.calls to [].
 ### spiedFunction.restore()
 
 Restores the spiedFunction to its original function and removes all spy utilities.
+
+### spiedFunction.returns(value)
+
+When Spied Function is called, it will return `value` instead of executing the original function.
+
+#### value
+
+Type: `*`
+
+Any value that is desired to be returned by spiedFunction().
 
 ## LICENSE
 MIT © [Dustin Specker](https://github.com/dustinspecker)

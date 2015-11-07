@@ -127,18 +127,34 @@ describe('austin', () => {
       expect(testSubject.test.calledWith(['bye'])).to.eql(false);
     });
 
+    it('should add returns function to Spied Function', () => {
+      austin.spy(testSubject, 'test');
+
+      expect(typeof testSubject.test.returns).to.eql('function');
+    });
+
+    it('should return returns value when Spied Function is called', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test.returns(7);
+
+      expect(testSubject.test()).to.eql(7);
+    });
+
     it('should restore spied function to original function', () => {
       testSubject.test = function () {
         return 1;
       };
 
       austin.spy(testSubject, 'test');
+      testSubject.test.returns(7);
       testSubject.test.restore();
 
       expect(testSubject.test()).to.eql(1);
       expect(typeof testSubject.test.calls).to.eql('undefined');
       expect(typeof testSubject.test.callCount).to.eql('undefined');
       expect(typeof testSubject.test.restore).to.eql('undefined');
+      expect(typeof testSubject.test.returns).to.eql('undefined');
     });
   });
 });
