@@ -188,6 +188,19 @@ describe('austin', () => {
       expect(testSubject.test('dog')).to.eql('bye');
     });
 
+    it('should return callCount function on withArgs', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test('cat');
+      testSubject.test('dog');
+      testSubject.test('dog');
+
+      expect(testSubject.test.withArgs([]).callCount()).to.eql(0);
+      expect(testSubject.test.withArgs(['cat']).callCount()).to.eql(1);
+      expect(testSubject.test.withArgs(['dog']).callCount()).to.eql(2);
+      expect(testSubject.test.callCount()).to.eql(3);
+    });
+
     it('should return Spied Function on initial spy for easy chaining', () => {
       austin.spy(testSubject, 'test').returns('dog');
 

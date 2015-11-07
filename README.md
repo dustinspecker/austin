@@ -58,6 +58,8 @@ testSubject.test();
 testSubject.test.withArgs(['austin']).returns('powers');
 testSubject.test('austin');
 // => 'powers'
+testSubject.test.withArgs(['austin']).callCount();
+// => 1
 
 // And supports chaining withArgs and returns
 testSubject.test.returns('Groovy!')
@@ -166,7 +168,7 @@ Any value that is desired to be returned by spiedFunction().
 
 ### spiedFunction.withArgs(params)
 
-Returns an object with a [returns](#spiedfunctionreturnsvalue) method to fake return values of calls to spiedFunction with params.
+Returns an object with a [returns](#spiedfunctionreturnsvalue) method to fake return values of calls to spiedFunction with params and [callCount](#spiedfunctioncallcount).
 
 Note: `spiedFunction.withArgs([...]).returns(...)` returns spiedFunction for easy chaining like `spiedFunction.withArgs([...]).returns(...).withArgs([...]).returns(...)`.
 

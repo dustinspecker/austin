@@ -117,6 +117,16 @@ function spy(obj, methodName) {
   spiedFn.withArgs = function (params) {
     return {
       /**
+       * Returns number of calls to Spied Function with params
+       * @return {Number} - number of calls
+       */
+      callCount() {
+        return spiedFn.calls.reduce(
+          (acc, call) => deepEqual(call, params) ? acc + 1 : acc, 0
+        );
+      },
+
+      /**
        * Setups up fake value returns when Spied Function is called with params
        * @param {*} value - fake value to return
        * @return {Object} - Spied Function is returned for easy chaining
