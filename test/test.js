@@ -146,6 +146,15 @@ describe('austin', () => {
       expect(testSubject.test()).to.eql(7);
     });
 
+    it('should override returns value when called again', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test.returns(7);
+      testSubject.test.returns(5);
+
+      expect(testSubject.test()).to.eql(5);
+    });
+
     it('should add withArgs function to Spied Function', () => {
       austin.spy(testSubject, 'test');
 
