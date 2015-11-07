@@ -1,6 +1,6 @@
 {
   "name": "austin",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Add the Powers of spying to JavaScript tests",
   "main": "lib/index.js",
   "scripts": {
