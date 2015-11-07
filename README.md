@@ -35,6 +35,11 @@ testSubject.testFunction();
 testSubject.testFunction.callCount;
 // => 1
 
+// Austin can reset spy analytics...
+testSubject.testFunction.resetCount();
+testSubject.testFunction.callCount;
+// => 0
+
 // When Austin is told to halt spying...
 testSubject.testFunction.restore();
 
@@ -75,6 +80,10 @@ Executes the original function, while updating spy analytics such as call count.
 ### spiedFunction.callCount
 
 The number of times spiedFunction was executed.
+
+### spiedFunction.resetCount()
+
+Resets spiedFunction.callCount to 0.
 
 ### spiedFunction.restore()
 

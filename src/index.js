@@ -36,6 +36,13 @@ module.exports = {
     obj[methodName].callCount = 0;
 
     /**
+     * Resets callCount to 0
+     */
+    obj[methodName].resetCount = function () {
+      obj[methodName].callCount = 0;
+    };
+
+    /**
      * Transforms Spied Function back to original function
      */
     obj[methodName].restore = function () {

@@ -56,6 +56,14 @@ describe('austin', () => {
       expect(testSubject.test.callCount).to.eql(2);
     });
 
+    it('should reset callCount to 0 when resetCount is called', () => {
+      austin.spy(testSubject, 'test');
+      testSubject.test();
+      testSubject.test.resetCount();
+
+      expect(testSubject.test.callCount).to.eql(0);
+    });
+
     it('should add restore function to obj[methodName]', () => {
       austin.spy(testSubject, 'test');
 
