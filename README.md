@@ -163,6 +163,9 @@ When spiedFunction is called, it will return `value` instead of executing the or
 
 Note: returns spiedFunction for easy chaining with [withArgs](#spiedfunctionwithargsparams).
 
+Note: if calling `spiedFunction.withArgs([...]).returns(...)` with `params` that already have a fake value, then the
+new value passed to `returns` will override the previous value.
+
 #### value
 
 Type: `*`

@@ -178,6 +178,15 @@ describe('austin', () => {
       expect(testSubject.test()).to.eql(undefined);
     });
 
+    it('should override withArgs->returns value when called more than once', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test.withArgs(['hello']).returns('bye');
+      testSubject.test.withArgs(['hello']).returns('goodbye');
+
+      expect(testSubject.test('hello')).to.eql('goodbye');
+    });
+
     it('should return Spied Function after setting withArgs->returns', () => {
       austin.spy(testSubject, 'test');
 

@@ -132,11 +132,23 @@ function spy(obj, methodName) {
 
       /**
        * Setups up fake value returns when Spied Function is called with params
+       * Overrides previous fake value if withArgs is called twice with same params
        * @param {*} value - fake value to return
        * @return {Object} - Spied Function is returned for easy chaining
        */
       returns(value) {
-        withArgsReturns.push({params, value});
+        let found = false;
+
+        withArgsReturns.forEach(withArgs => {
+          if (deepEqual(withArgs.params, params)) {
+            withArgs.value = value;
+            found = true;
+          }
+        });
+
+        if (!found) {
+          withArgsReturns.push({params, value});
+        }
 
         return spiedFn;
       }
