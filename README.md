@@ -55,6 +55,15 @@ testSubject.test.withArgs(['austin']).returns('powers');
 testSubject.test('austin');
 // => 'powers'
 
+// And supports chaining withArgs and returns
+testSubject.test
+  .withArgs(['austin']).returns('powers')
+  .withArgs(['oooo']).returns('behave');
+testSubject.test('austin');
+// => 'powers'
+testSubject.test('oooo');
+// => 'behave'
+
 // Austin can reset spy analytics...
 testSubject.testFunction.reset();
 testSubject.testFunction.callCount;
@@ -138,6 +147,8 @@ Any value that is desired to be returned by spiedFunction().
 ### spiedFunction.withArgs(params)
 
 Returns an object with a [returns](#spiedfunctionreturnsvalue) method to fake return values of calls to spiedFunction with params.
+
+Note: `spiedFunction.withArgs([...]).returns(...)` returns spiedFunction for easy chaining like `spiedFunction.withArgs([...]).returns(...).withArgs([...]).returns(...)`.
 
 #### params
 

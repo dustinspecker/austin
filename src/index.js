@@ -111,9 +111,12 @@ module.exports = {
         /**
          * Setups up fake value returns when Spied Function is called with params
          * @param {*} value - fake value to return
+         * @return {Object} - Spied Function is returned for easy chaining
          */
         returns(value) {
           withArgsReturns.push({params, value});
+
+          return obj[methodName];
         }
       };
     };

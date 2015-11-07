@@ -164,6 +164,18 @@ describe('austin', () => {
       expect(testSubject.test()).to.eql(undefined);
     });
 
+    it('should return Spied Function after setting withArgs->returns', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test
+        .withArgs(['hi']).returns('bye')
+        .withArgs(['austin']).returns('powers');
+
+      expect(testSubject.test('hi')).to.eql('bye');
+      expect(testSubject.test('austin')).to.eql('powers');
+      expect(testSubject.test()).to.eql(undefined);
+    });
+
     it('should restore spied function to original function', () => {
       testSubject.test = function () {
         return 1;
