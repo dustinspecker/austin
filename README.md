@@ -82,12 +82,15 @@ testSubject.anotherFunction();
 testSubject.anotherFunction('live');
 // => 'dangerously'
 
-// Austin can reset spy analytics...
+// Austin can reset spy analytics and fake value returns...
+testSubject.testFunction.withArgs('Dr.').returns('Evil');
 testSubject.testFunction.reset();
 testSubject.testFunction.callCount();
 // => 0
 testSubject.testFunction.calls;
 // => []
+testSubject.testFunction('Dr.');
+// => 5
 
 // When Austin is told to halt spying...
 testSubject.testFunction.restore();
@@ -148,7 +151,7 @@ An array of parameters passed to each exectuion of Spied Function.
 
 ### spiedFunction.reset()
 
-Resets spiedFunction.callCount() to 0 and spiedFunction.calls to [].
+Resets spiedFunction.callCount() to 0, spiedFunction.calls to [], and resets any fake values set with [returns](#spiedfunctionreturnsvalue).
 
 ### spiedFunction.restore()
 

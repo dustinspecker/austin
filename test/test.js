@@ -66,13 +66,18 @@ describe('austin', () => {
       expect(testSubject.test.callCount()).to.eql(2);
     });
 
-    it('should reset spy analytics when reset is called', () => {
+    it('should reset spy analytics and fake values when reset is called', () => {
       austin.spy(testSubject, 'test');
+      testSubject.test.returns(7)
+        .withArgs(['austin']).returns('powers');
+
       testSubject.test();
       testSubject.test.reset();
 
       expect(testSubject.test.callCount()).to.eql(0);
       expect(testSubject.test.calls).to.eql([]);
+      expect(testSubject.test()).to.eql(undefined);
+      expect(testSubject.test('austin')).to.eql(undefined);
     });
 
     it('should add restore function to obj[methodName]', () => {

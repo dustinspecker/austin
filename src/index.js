@@ -84,11 +84,15 @@ function spy(obj, methodName) {
   };
 
   /**
-   * Resets spy analytics
+   * Resets spy analytics and fake values
    *  - calls = []
+   *  - returnValue = undefined
+   *  - withArgsReturns = []
    */
   spiedFn.reset = function () {
     spiedFn.calls = [];
+    returnValue = undefined;
+    withArgsReturns = [];
   };
 
   /**
