@@ -151,10 +151,10 @@ describe('austin', () => {
       testSubject.test.restore();
 
       expect(testSubject.test()).to.eql(1);
-      expect(typeof testSubject.test.calls).to.eql('undefined');
-      expect(typeof testSubject.test.callCount).to.eql('undefined');
-      expect(typeof testSubject.test.restore).to.eql('undefined');
-      expect(typeof testSubject.test.returns).to.eql('undefined');
+      expect(testSubject.test.calls).to.eql(undefined);
+      expect(testSubject.test.callCount).to.eql(undefined);
+      expect(testSubject.test.restore).to.eql(undefined);
+      expect(testSubject.test.returns).to.eql(undefined);
     });
   });
 });
