@@ -13,7 +13,7 @@ module.exports = {
  */
 function spy(obj, methodName) {
   let withArgsReturns = []
-    , originalFn, returnValue;
+    , originalFn, returnValue, spiedFn;
 
   if (obj === null || obj === undefined) {
     throw new TypeError('Expected obj to not be null or undefined');
@@ -51,23 +51,25 @@ function spy(obj, methodName) {
     return returnValue || originalFn();
   };
 
+  spiedFn = obj[methodName];
+
   /**
    * Number of times obj[methodName] has been executed
    */
-  obj[methodName].callCount = 0;
+  spiedFn.callCount = 0;
 
   /**
    * Stored parameters of each call to Spied Function
    */
-  obj[methodName].calls = [];
+  spiedFn.calls = [];
 
   /**
    * Determine if Spied Function was called with parameters
    * @param {*[]} params - list of parameters to test for
    * @return {Boolean} - if Spied function was called with params
    */
-  obj[methodName].calledWith = function (params) {
-    let calls = obj[methodName].calls
+  spiedFn.calledWith = function (params) {
+    let calls = spiedFn.calls
       , i;
 
     for (i = 0; i < calls.length; i++) {
@@ -84,15 +86,15 @@ function spy(obj, methodName) {
    *  - callCount = 0
    *  - calls = []
    */
-  obj[methodName].reset = function () {
-    obj[methodName].callCount = 0;
-    obj[methodName].calls = [];
+  spiedFn.reset = function () {
+    spiedFn.callCount = 0;
+    spiedFn.calls = [];
   };
 
   /**
    * Transforms Spied Function back to original function
    */
-  obj[methodName].restore = function () {
+  spiedFn.restore = function () {
     obj[methodName] = originalFn;
   };
 
@@ -101,10 +103,10 @@ function spy(obj, methodName) {
    * @param {*} value - a value to return when Spied Function is executed
    * @return {Object} - Spied Function is returned for easy chaining
    */
-  obj[methodName].returns = function (value) {
+  spiedFn.returns = function (value) {
     returnValue = value;
 
-    return obj[methodName];
+    return spiedFn;
   };
 
   /**
@@ -112,7 +114,7 @@ function spy(obj, methodName) {
    * @param {*[]} params - an array of desired params
    * @return {Object} - object with a returns method for mocking value for specific args
    */
-  obj[methodName].withArgs = function (params) {
+  spiedFn.withArgs = function (params) {
     return {
       /**
        * Setups up fake value returns when Spied Function is called with params
@@ -122,7 +124,7 @@ function spy(obj, methodName) {
       returns(value) {
         withArgsReturns.push({params, value});
 
-        return obj[methodName];
+        return spiedFn;
       }
     };
   };
