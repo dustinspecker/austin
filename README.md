@@ -50,6 +50,11 @@ testSubject.test.returns('a fake value');
 testSubject.test();
 // => 'a fake value'
 
+// And can intercept the return value of the Spied Function with specific parameters
+testSubject.test.withArgs(['austin']).returns('powers');
+testSubject.test('austin');
+// => 'powers'
+
 // Austin can reset spy analytics...
 testSubject.testFunction.reset();
 testSubject.testFunction.callCount;
@@ -129,6 +134,16 @@ When Spied Function is called, it will return `value` instead of executing the o
 Type: `*`
 
 Any value that is desired to be returned by spiedFunction().
+
+### spiedFunction.withArgs(params)
+
+Returns an object with a [returns](#spiedfunctionreturnsvalue) method to fake return values of calls to spiedFunction with params.
+
+#### params
+
+Type: `Array`
+
+An array of any types
 
 ## LICENSE
 MIT © [Dustin Specker](https://github.com/dustinspecker)

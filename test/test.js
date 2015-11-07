@@ -141,6 +141,29 @@ describe('austin', () => {
       expect(testSubject.test()).to.eql(7);
     });
 
+    it('should add withArgs function to Spied Function', () => {
+      austin.spy(testSubject, 'test');
+
+      expect(typeof testSubject.test.withArgs).to.eql('function');
+    });
+
+    it('should return object with returns on withArgs call', () => {
+      austin.spy(testSubject, 'test');
+
+      expect(typeof testSubject.test.withArgs().returns).to.eql('function');
+    });
+
+    it('should return mock value for withArgs->returns setup', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test.withArgs(['hi']).returns('bye');
+      testSubject.test.withArgs(['austin']).returns('powers');
+
+      expect(testSubject.test('hi')).to.eql('bye');
+      expect(testSubject.test('austin')).to.eql('powers');
+      expect(testSubject.test()).to.eql(undefined);
+    });
+
     it('should restore spied function to original function', () => {
       testSubject.test = function () {
         return 1;
@@ -155,6 +178,7 @@ describe('austin', () => {
       expect(testSubject.test.callCount).to.eql(undefined);
       expect(testSubject.test.restore).to.eql(undefined);
       expect(testSubject.test.returns).to.eql(undefined);
+      expect(testSubject.test.withArgs).to.eql(undefined);
     });
   });
 });

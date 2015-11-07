@@ -9,7 +9,8 @@ module.exports = {
    * @param {*} methodName - obj[methodName] must be a function and will be spied on
    */
   spy(obj, methodName) {
-    let originalFn, returnValue;
+    let withArgsReturns = []
+      , originalFn, returnValue;
 
     if (obj === null || obj === undefined) {
       throw new TypeError('Expected obj to not be null or undefined');
@@ -29,11 +30,20 @@ module.exports = {
     /**
      * Update spy analytics and call original function
      *  - Increase callCount by 1
-     * @return {*} - return value of original function
+     *  - Push args to calls
+     * @return {*} - return value of fake value for args or original function
      */
     obj[methodName] = function (...args) {
+      let i;
+
       obj[methodName].callCount++;
       obj[methodName].calls.push(args);
+
+      for (i = 0; i < withArgsReturns.length; i++) {
+        if (deepEqual(withArgsReturns[i].params, args)) {
+          return withArgsReturns[i].value;
+        }
+      }
 
       return returnValue || originalFn();
     };
@@ -89,6 +99,23 @@ module.exports = {
      */
     obj[methodName].returns = function (value) {
       returnValue = value;
+    };
+
+    /**
+     * Set up spy analytics and returns for Spied Function with specific calls with args
+     * @param {*[]} params - an array of desired params
+     * @return {Object} - object with a returns method for mocking value for specific args
+     */
+    obj[methodName].withArgs = function (params) {
+      return {
+        /**
+         * Setups up fake value returns when Spied Function is called with params
+         * @param {*} value - fake value to return
+         */
+        returns(value) {
+          withArgsReturns.push({params, value});
+        }
+      };
     };
   }
 };
