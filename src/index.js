@@ -20,6 +20,11 @@ module.exports = {
       throw new TypeError('Expected obj[methodName] to be a function');
     }
 
+    // if originalFn looks like a Spied Function, assume it is one and throw an error
+    if (originalFn.callCount !== undefined && originalFn.resetCount && originalFn.restore) {
+      throw new Error('Cannot spy on a Spied Function');
+    }
+
     /**
      * Update spy analytics and call original function
      *  - Increase callCount by 1

@@ -36,6 +36,16 @@ describe('austin', () => {
       expect(test).to.throw(TypeError, /Expected obj\[methodName\] to be a function/);
     });
 
+    it('should throw Error if spy is called on a Spied Function', () => {
+      function test() {
+        austin.spy(testSubject, 'test');
+      }
+
+      austin.spy(testSubject, 'test');
+
+      expect(test).to.throw(Error, /Cannot spy on a Spied Function/);
+    });
+
     it('should add callCount property initialized to 0 to obj[methodName]', () => {
       austin.spy(testSubject, 'test');
 
