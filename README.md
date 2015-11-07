@@ -102,9 +102,19 @@ testSubject.testFunction.callCount;
 // And the function returns to its former self.
 testSubject.testFunction();
 // => 5
+
+// And Austin is smart enough to make new spies...
+var nigelPowers = austin.spy();
+nigelPowers.returns('Judo Chop');
+nigelPowers();
+// => 'Judo Chop'
 ```
 
 ## API
+### austin.spy()
+
+Creates a new [Spied Function](#spied-function).
+
 ### austin.spy(obj, methodName)
 
 Adds spy related utilities to obj[methodName] by transforming the function to a [Spied Function](#spied-function).

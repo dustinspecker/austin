@@ -6,15 +6,28 @@ module.exports = {
 };
 
 /*
- * Adds spy related utilities to obj[methodName].
+ * Adds spy related utilities to obj[methodName] or creates a new Spied Function
+ *
+ * If obj and methodName are not passed, a Spied Function is created with the same
+ * features as a normal Spied Function created from obj and methodName.
+ *
  * @throws {TypeError} - if obj is null or undefined
- * @param {Object} obj - the object that has the method to spy on
- * @param {*} methodName - obj[methodName] must be a function and will be spied on
+ * @param {Object} [obj] - the object that has the method to spy on
+ * @param {*} [methodName] - obj[methodName] must be a function and will be spied on
  * @return {Object} - return Spied Function for easy chaining
  */
 function spy(obj, methodName) {
-  let withArgsReturns = []
+  let isNewSpy = !arguments.length
+    , withArgsReturns = []
     , originalFn, returnValue, spiedFn;
+
+  if (isNewSpy) {
+    obj = {
+      spy() {}
+    };
+
+    methodName = 'spy';
+  }
 
   if (obj === null || obj === undefined) {
     throw new TypeError('Expected obj to not be null or undefined');
@@ -97,8 +110,13 @@ function spy(obj, methodName) {
 
   /**
    * Transforms Spied Function back to original function
+   * @throws {Error} - if attempting to restore a new spy
    */
   spiedFn.restore = function () {
+    if (isNewSpy) {
+      throw new Error('Cannot restore a new spy');
+    }
+
     obj[methodName] = originalFn;
   };
 
