@@ -21,7 +21,7 @@ module.exports = {
     }
 
     // if originalFn looks like a Spied Function, assume it is one and throw an error
-    if (originalFn.callCount !== undefined && originalFn.resetCount && originalFn.restore) {
+    if (originalFn.callCount !== undefined && originalFn.reset && originalFn.restore) {
       throw new Error('Cannot spy on a Spied Function');
     }
 
@@ -47,10 +47,13 @@ module.exports = {
     obj[methodName].calls = [];
 
     /**
-     * Resets callCount to 0
+     * Resets spy analytics
+     *  - callCount = 0
+     *  - calls = []
      */
-    obj[methodName].resetCount = function () {
+    obj[methodName].reset = function () {
       obj[methodName].callCount = 0;
+      obj[methodName].calls = [];
     };
 
     /**

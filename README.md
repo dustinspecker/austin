@@ -40,9 +40,11 @@ testSubject.testFunction.calls[0];
 // => ['green', 3, {x: ['seven']}]
 
 // Austin can reset spy analytics...
-testSubject.testFunction.resetCount();
+testSubject.testFunction.reset();
 testSubject.testFunction.callCount;
 // => 0
+testSubject.testFunction.calls;
+// => []
 
 // When Austin is told to halt spying...
 testSubject.testFunction.restore();
@@ -89,9 +91,9 @@ The number of times spiedFunction was executed.
 
 An array of parameters passed to each exectuion of Spied Function.
 
-### spiedFunction.resetCount()
+### spiedFunction.reset()
 
-Resets spiedFunction.callCount to 0.
+Resets spiedFunction.callCount to 0 and spiedFunction.calls to [].
 
 ### spiedFunction.restore()
 
