@@ -188,6 +188,12 @@ describe('austin', () => {
       expect(testSubject.test('dog')).to.eql('bye');
     });
 
+    it('should return Spied Function on initial spy for easy chaining', () => {
+      austin.spy(testSubject, 'test').returns('dog');
+
+      expect(testSubject.test()).to.eql('dog');
+    });
+
     it('should restore spied function to original function', () => {
       testSubject.test = function () {
         return 1;

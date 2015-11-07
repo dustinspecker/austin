@@ -17,6 +17,10 @@ var austin = require('austin');
 var testSubject = {
   testFunction: function () {
     return 5;
+  },
+
+  anotherFunction: function () {
+    return 'hello';
   }
 };
 
@@ -68,6 +72,14 @@ testSubject.test('oooo');
 testSubject.test('Dr. Evil');
 // => 'Groovy!'
 
+// And can chain initial spy call
+austin.spy(testSubject, 'anotherFunction').returns('bye')
+  .withArgs(['live']).returns('dangerously');
+testSubject.anotherFunction();
+// => 'bye'
+testSubject.anotherFunction('live');
+// => 'dangerously'
+
 // Austin can reset spy analytics...
 testSubject.testFunction.reset();
 testSubject.testFunction.callCount;
@@ -91,6 +103,8 @@ testSubject.testFunction();
 ### austin.spy(obj, methodName)
 
 Adds spy related utilities to obj[methodName] by transforming the function to a [Spied Function](#spied-function).
+
+Note: returns [Spied Function](#spied-function) for easy chaining with [returns](#spiedfunctionreturnsvalue) and [withArgs](#spiedfunctionwithargsparams).
 
 #### obj
 
@@ -140,9 +154,9 @@ Restores the spiedFunction to its original function and removes all spy utilitie
 
 ### spiedFunction.returns(value)
 
-Returns spiedFunction for easy chaining with [withArgs](https://github.com/dustinspecker/austin#spiedfunctionwithargsparams).
-
 When spiedFunction is called, it will return `value` instead of executing the original function.
+
+Note: returns spiedFunction for easy chaining with [withArgs](#spiedfunctionwithargsparams).
 
 #### value
 

@@ -10,6 +10,7 @@ module.exports = {
  * @throws {TypeError} - if obj is null or undefined
  * @param {Object} obj - the object that has the method to spy on
  * @param {*} methodName - obj[methodName] must be a function and will be spied on
+ * @return {Object} - return Spied Function for easy chaining
  */
 function spy(obj, methodName) {
   let withArgsReturns = []
@@ -128,4 +129,6 @@ function spy(obj, methodName) {
       }
     };
   };
+
+  return spiedFn;
 }
