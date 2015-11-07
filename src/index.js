@@ -14,11 +14,11 @@ module.exports = {
       throw new TypeError('Expected obj to not be null or undefined');
     }
 
-    if (typeof obj[methodName] !== 'function') {
+    originalFn = obj[methodName];
+
+    if (typeof originalFn !== 'function') {
       throw new TypeError('Expected obj[methodName] to be a function');
     }
-
-    originalFn = obj[methodName];
 
     /**
      * Update spy analytics and call original function
