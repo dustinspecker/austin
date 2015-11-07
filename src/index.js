@@ -20,15 +20,26 @@ module.exports = {
 
     originalFn = obj[methodName];
 
+    /**
+     * Update spy analytics and call original function
+     *  - Increase callCount by 1
+     * @return {*} - return value of original function
+     */
     obj[methodName] = function () {
       obj[methodName].callCount++;
       return originalFn();
     };
 
+    /**
+     * Transforms Spied Function back to original function
+     */
     obj[methodName].restore = function () {
       obj[methodName] = originalFn;
     };
 
+    /**
+     * Number of times obj[methodName] has been executed
+     */
     obj[methodName].callCount = 0;
   }
 };
