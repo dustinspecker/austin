@@ -51,6 +51,9 @@ describe('austin', () => {
 
       expect(testSubject.test()).to.eql(5);
       expect(testSubject.test.callCount).to.eql(1);
+
+      testSubject.test();
+      expect(testSubject.test.callCount).to.eql(2);
     });
 
     it('should add restore function to obj[methodName]', () => {
