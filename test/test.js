@@ -46,10 +46,10 @@ describe('austin', () => {
       expect(test).to.throw(Error, /Cannot spy on a Spied Function/);
     });
 
-    it('should add callCount property initialized to 0 to obj[methodName]', () => {
+    it('should add callCount function with initial value of 0 to obj[methodName]', () => {
       austin.spy(testSubject, 'test');
 
-      expect(testSubject.test.callCount).to.eql(0);
+      expect(testSubject.test.callCount()).to.eql(0);
     });
 
     it('should call original function and increment callCount when spied function is executed', () => {
@@ -60,10 +60,10 @@ describe('austin', () => {
       austin.spy(testSubject, 'test');
 
       expect(testSubject.test()).to.eql(5);
-      expect(testSubject.test.callCount).to.eql(1);
+      expect(testSubject.test.callCount()).to.eql(1);
 
       testSubject.test();
-      expect(testSubject.test.callCount).to.eql(2);
+      expect(testSubject.test.callCount()).to.eql(2);
     });
 
     it('should reset spy analytics when reset is called', () => {
@@ -71,7 +71,7 @@ describe('austin', () => {
       testSubject.test();
       testSubject.test.reset();
 
-      expect(testSubject.test.callCount).to.eql(0);
+      expect(testSubject.test.callCount()).to.eql(0);
       expect(testSubject.test.calls).to.eql([]);
     });
 

@@ -28,7 +28,7 @@ var testSubject = {
 austin.spy(testSubject, 'testFunction');
 
 // Austin adds spy utilities...
-testSubject.testFunction.callCount;
+testSubject.testFunction.callCount();
 // => 0
 
 // Austin allows executing the function...
@@ -36,7 +36,7 @@ testSubject.testFunction('green', 3, {x: ['seven']});
 // => 5
 
 // Austin tracks the number of times the spied function was called...
-testSubject.testFunction.callCount;
+testSubject.testFunction.callCount();
 // => 1
 
 // And the parameters passed to each call of the spied function
@@ -82,7 +82,7 @@ testSubject.anotherFunction('live');
 
 // Austin can reset spy analytics...
 testSubject.testFunction.reset();
-testSubject.testFunction.callCount;
+testSubject.testFunction.callCount();
 // => 0
 testSubject.testFunction.calls;
 // => []
@@ -126,7 +126,7 @@ A Spied Function has additional properties and methods to aid testing
 
 Executes the original function, while updating spy analytics such as call count.
 
-### spiedFunction.callCount
+### spiedFunction.callCount()
 
 The number of times spiedFunction was executed.
 
@@ -146,7 +146,7 @@ An array of parameters passed to each exectuion of Spied Function.
 
 ### spiedFunction.reset()
 
-Resets spiedFunction.callCount to 0 and spiedFunction.calls to [].
+Resets spiedFunction.callCount() to 0 and spiedFunction.calls to [].
 
 ### spiedFunction.restore()
 

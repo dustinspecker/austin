@@ -27,20 +27,18 @@ function spy(obj, methodName) {
   }
 
   // if originalFn looks like a Spied Function, assume it is one and throw an error
-  if (originalFn.callCount !== undefined && originalFn.reset && originalFn.restore) {
+  if (originalFn.callCount && originalFn.reset && originalFn.restore) {
     throw new Error('Cannot spy on a Spied Function');
   }
 
   /**
    * Update spy analytics and call original function
-   *  - Increase callCount by 1
    *  - Push args to calls
    * @return {*} - return value of fake value for args or original function
    */
   obj[methodName] = function (...args) {
     let i;
 
-    obj[methodName].callCount++;
     obj[methodName].calls.push(args);
 
     for (i = 0; i < withArgsReturns.length; i++) {
@@ -56,8 +54,11 @@ function spy(obj, methodName) {
 
   /**
    * Number of times obj[methodName] has been executed
+   * @return {Number} - number of times called
    */
-  spiedFn.callCount = 0;
+  spiedFn.callCount = function () {
+    return spiedFn.calls.length;
+  };
 
   /**
    * Stored parameters of each call to Spied Function
@@ -84,11 +85,9 @@ function spy(obj, methodName) {
 
   /**
    * Resets spy analytics
-   *  - callCount = 0
    *  - calls = []
    */
   spiedFn.reset = function () {
-    spiedFn.callCount = 0;
     spiedFn.calls = [];
   };
 
