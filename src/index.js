@@ -1,4 +1,5 @@
 'use strict';
+import deepEqual from 'deep-equal';
 
 module.exports = {
   /*
@@ -45,6 +46,24 @@ module.exports = {
      * Stored parameters of each call to Spied Function
      */
     obj[methodName].calls = [];
+
+    /**
+     * Determine if Spied Function was called with parameters
+     * @param {*[]} params - list of parameters to test for
+     * @return {Boolean} - if Spied function was called with params
+     */
+    obj[methodName].calledWith = function (params) {
+      let calls = obj[methodName].calls
+        , i;
+
+      for (i = 0; i < calls.length; i++) {
+        if (deepEqual(calls[i], params, {strict: true})) {
+          return true;
+        }
+      }
+
+      return false;
+    };
 
     /**
      * Resets spy analytics

@@ -39,6 +39,12 @@ testSubject.testFunction.callCount;
 testSubject.testFunction.calls[0];
 // => ['green', 3, {x: ['seven']}]
 
+// And knows if a Spied Function was called with params...
+testSubject.testFunction.calledWith(['green', 3, {x: ['seven']}]);
+// => true
+testSubject.testFunction.calledWith(['blue']);
+// => false
+
 // Austin can reset spy analytics...
 testSubject.testFunction.reset();
 testSubject.testFunction.callCount;
@@ -86,6 +92,16 @@ Executes the original function, while updating spy analytics such as call count.
 ### spiedFunction.callCount
 
 The number of times spiedFunction was executed.
+
+### spiedFunction.calledWith(params)
+
+Returns a `Boolean` if spiedFunction was called with `params`.
+
+#### params
+
+Type: `Array`
+
+Params is an array of any types.
 
 ### spiedFunction.calls
 

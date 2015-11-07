@@ -22,7 +22,9 @@
   "files": [
     "lib"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "deep-equal": "^1.0.1"
+  },
   "devDependencies": {
     "babel-core": "^6.0.12",
     "babel-eslint": "^4.1.3",

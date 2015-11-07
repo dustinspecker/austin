@@ -107,6 +107,26 @@ describe('austin', () => {
       expect(testSubject.test.calls[2]).to.eql([]);
     });
 
+    it('should add calledWith function to Spied Function', () => {
+      austin.spy(testSubject, 'test');
+
+      expect(typeof testSubject.test.calledWith).to.eql('function');
+    });
+
+    it('should determine if Spied Function was called with args', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test('hi');
+      testSubject.test(null, 1, undefined, ['cat']);
+      testSubject.test();
+
+      expect(testSubject.test.calledWith(['hi'])).to.eql(true);
+      expect(testSubject.test.calledWith([null, 1, undefined, ['cat']])).to.eql(true);
+      expect(testSubject.test.calledWith([])).to.eql(true);
+
+      expect(testSubject.test.calledWith(['bye'])).to.eql(false);
+    });
+
     it('should restore spied function to original function', () => {
       testSubject.test = function () {
         return 1;
