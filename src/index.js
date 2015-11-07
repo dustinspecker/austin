@@ -31,15 +31,15 @@ module.exports = {
     };
 
     /**
+     * Number of times obj[methodName] has been executed
+     */
+    obj[methodName].callCount = 0;
+
+    /**
      * Transforms Spied Function back to original function
      */
     obj[methodName].restore = function () {
       obj[methodName] = originalFn;
     };
-
-    /**
-     * Number of times obj[methodName] has been executed
-     */
-    obj[methodName].callCount = 0;
   }
 };
