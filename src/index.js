@@ -60,7 +60,7 @@ function spy(obj, methodName) {
       }
     }
 
-    return returnValue || originalFn();
+    return returnValue || originalFn(...args);
   };
 
   spiedFn = obj[methodName];

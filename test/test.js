@@ -66,6 +66,16 @@ describe('austin', () => {
       expect(testSubject.test.callCount()).to.eql(2);
     });
 
+    it('should pass params to original function', () => {
+      testSubject.test = function (x, y) {
+        return x + y;
+      };
+
+      austin.spy(testSubject, 'test');
+
+      expect(testSubject.test(1, 3)).to.eql(4);
+    });
+
     it('should reset spy analytics and fake values when reset is called', () => {
       austin.spy(testSubject, 'test');
       testSubject.test.returns(7)
