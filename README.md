@@ -157,7 +157,7 @@ Params is an array of any types.
 
 ### spiedFunction.calls
 
-An array of parameters passed to each exectuion of Spied Function.
+An array of parameters passed to each execution of Spied Function.
 
 ### spiedFunction.reset()
 
