@@ -44,9 +44,9 @@ testSubject.testFunction.calls[0];
 // => ['green', 3, {x: ['seven']}]
 
 // And knows if a Spied Function was called with params...
-testSubject.testFunction.calledWith(['green', 3, {x: ['seven']}]);
+testSubject.testFunction.calledWith('green', 3, {x: ['seven']});
 // => true
-testSubject.testFunction.calledWith(['blue']);
+testSubject.testFunction.calledWith('blue');
 // => false
 
 // And can intercept the return value of the Spied Function
@@ -55,16 +55,16 @@ testSubject.test();
 // => 'a fake value'
 
 // And can intercept the return value of the Spied Function with specific parameters
-testSubject.test.withArgs(['austin']).returns('powers');
+testSubject.test.withArgs('austin').returns('powers');
 testSubject.test('austin');
 // => 'powers'
-testSubject.test.withArgs(['austin']).callCount();
+testSubject.test.withArgs('austin').callCount();
 // => 1
 
 // And supports chaining withArgs and returns
 testSubject.test.returns('Groovy!')
-  .withArgs(['austin']).returns('powers')
-  .withArgs(['oooo']).returns('behave');
+  .withArgs('austin').returns('powers')
+  .withArgs('oooo').returns('behave');
 testSubject.test();
 // => 'Groovy!'
 testSubject.test('austin');
@@ -76,7 +76,7 @@ testSubject.test('Dr. Evil');
 
 // And can chain initial spy call
 austin.spy(testSubject, 'anotherFunction').returns('bye')
-  .withArgs(['live']).returns('dangerously');
+  .withArgs('live').returns('dangerously');
 testSubject.anotherFunction();
 // => 'bye'
 testSubject.anotherFunction('live');
@@ -151,9 +151,9 @@ Returns a `Boolean` if spiedFunction was called with `params`.
 
 #### params
 
-Type: `Array`
+Type: `...*`
 
-Params is an array of any types.
+Params is a list of any types.
 
 ### spiedFunction.calls
 
@@ -173,7 +173,7 @@ When spiedFunction is called, it will return `value` instead of executing the or
 
 Note: returns spiedFunction for easy chaining with [withArgs](#spiedfunctionwithargsparams).
 
-Note: if calling `spiedFunction.withArgs([...]).returns(...)` with `params` that already have a fake value, then the
+Note: if calling `spiedFunction.withArgs(...).returns(...)` with `params` that already have a fake value, then the
 new value passed to `returns` will override the previous value.
 
 #### value
@@ -186,11 +186,11 @@ Any value that is desired to be returned by spiedFunction().
 
 Returns an object with a [returns](#spiedfunctionreturnsvalue) method to fake return values of calls to spiedFunction with params and [callCount](#spiedfunctioncallcount).
 
-Note: `spiedFunction.withArgs([...]).returns(...)` returns spiedFunction for easy chaining like `spiedFunction.withArgs([...]).returns(...).withArgs([...]).returns(...)`.
+Note: `spiedFunction.withArgs(...).returns(...)` returns spiedFunction for easy chaining like `spiedFunction.withArgs(...).returns(...).withArgs(...).returns(...)`.
 
 #### params
 
-Type: `Array`
+Type: `...*`
 
 An array of any types
 

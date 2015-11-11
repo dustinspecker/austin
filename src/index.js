@@ -80,10 +80,10 @@ function spy(obj, methodName) {
 
   /**
    * Determine if Spied Function was called with parameters
-   * @param {*[]} params - list of parameters to test for
+   * @param {...*} params - list of parameters to test for
    * @return {Boolean} - if Spied function was called with params
    */
-  spiedFn.calledWith = function (params) {
+  spiedFn.calledWith = function (...params) {
     let calls = spiedFn.calls
       , i;
 
@@ -133,10 +133,10 @@ function spy(obj, methodName) {
 
   /**
    * Set up spy analytics and returns for Spied Function with specific calls with args
-   * @param {*[]} params - an array of desired params
+   * @param {...*} params - a list of desired params
    * @return {Object} - object with a returns method for mocking value for specific args
    */
-  spiedFn.withArgs = function (params) {
+  spiedFn.withArgs = function (...params) {
     return {
       /**
        * Returns number of calls to Spied Function with params

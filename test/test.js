@@ -79,7 +79,7 @@ describe('austin', () => {
     it('should reset spy analytics and fake values when reset is called', () => {
       austin.spy(testSubject, 'test');
       testSubject.test.returns(7)
-        .withArgs(['austin']).returns('powers');
+        .withArgs('austin').returns('powers');
 
       testSubject.test();
       testSubject.test.reset();
@@ -135,11 +135,11 @@ describe('austin', () => {
       testSubject.test(null, 1, undefined, ['cat']);
       testSubject.test();
 
-      expect(testSubject.test.calledWith(['hi'])).to.eql(true);
-      expect(testSubject.test.calledWith([null, 1, undefined, ['cat']])).to.eql(true);
-      expect(testSubject.test.calledWith([])).to.eql(true);
+      expect(testSubject.test.calledWith('hi')).to.eql(true);
+      expect(testSubject.test.calledWith(null, 1, undefined, ['cat'])).to.eql(true);
+      expect(testSubject.test.calledWith()).to.eql(true);
 
-      expect(testSubject.test.calledWith(['bye'])).to.eql(false);
+      expect(testSubject.test.calledWith('bye')).to.eql(false);
     });
 
     it('should add returns function to Spied Function', () => {
@@ -180,8 +180,8 @@ describe('austin', () => {
     it('should return mock value for withArgs->returns setup', () => {
       austin.spy(testSubject, 'test');
 
-      testSubject.test.withArgs(['hi']).returns('bye');
-      testSubject.test.withArgs(['austin']).returns('powers');
+      testSubject.test.withArgs('hi').returns('bye');
+      testSubject.test.withArgs('austin').returns('powers');
 
       expect(testSubject.test('hi')).to.eql('bye');
       expect(testSubject.test('austin')).to.eql('powers');
@@ -191,8 +191,8 @@ describe('austin', () => {
     it('should override withArgs->returns value when called more than once', () => {
       austin.spy(testSubject, 'test');
 
-      testSubject.test.withArgs(['hello']).returns('bye');
-      testSubject.test.withArgs(['hello']).returns('goodbye');
+      testSubject.test.withArgs('hello').returns('bye');
+      testSubject.test.withArgs('hello').returns('goodbye');
 
       expect(testSubject.test('hello')).to.eql('goodbye');
     });
@@ -201,8 +201,8 @@ describe('austin', () => {
       austin.spy(testSubject, 'test');
 
       testSubject.test
-        .withArgs(['hi']).returns('bye')
-        .withArgs(['austin']).returns('powers');
+        .withArgs('hi').returns('bye')
+        .withArgs('austin').returns('powers');
 
       expect(testSubject.test('hi')).to.eql('bye');
       expect(testSubject.test('austin')).to.eql('powers');
@@ -214,7 +214,7 @@ describe('austin', () => {
       austin.spy(testSubject, 'test');
 
       testSubject.test.returns('bye')
-        .withArgs(['austin']).returns('powers');
+        .withArgs('austin').returns('powers');
 
       expect(testSubject.test()).to.eql('bye');
       expect(testSubject.test('austin')).to.eql('powers');
@@ -228,9 +228,9 @@ describe('austin', () => {
       testSubject.test('dog');
       testSubject.test('dog');
 
-      expect(testSubject.test.withArgs([]).callCount()).to.eql(0);
-      expect(testSubject.test.withArgs(['cat']).callCount()).to.eql(1);
-      expect(testSubject.test.withArgs(['dog']).callCount()).to.eql(2);
+      expect(testSubject.test.withArgs().callCount()).to.eql(0);
+      expect(testSubject.test.withArgs('cat').callCount()).to.eql(1);
+      expect(testSubject.test.withArgs('dog').callCount()).to.eql(2);
       expect(testSubject.test.callCount()).to.eql(3);
     });
 
