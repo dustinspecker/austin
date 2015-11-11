@@ -2,6 +2,7 @@
   parser: "babel-eslint",
   extends: "dustinspecker/esnext",
   plugins: [
+    "new-with-error",
     "no-use-extend-native"
   ]
 }
