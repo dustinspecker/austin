@@ -165,6 +165,24 @@ describe('austin', () => {
       expect(testSubject.test()).to.eql(5);
     });
 
+    it('should throw error when Spied Function is called', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test.throws(Error);
+      expect(testSubject.test).to.throw(Error);
+
+      testSubject.test.throws(TypeError);
+      expect(testSubject.test).to.throw(TypeError);
+    });
+
+    it('should throw error with message when Spied Function is called', () => {
+      austin.spy(testSubject, 'test');
+
+      testSubject.test.throws(TypeError, 'Expected value to be a string');
+
+      expect(testSubject.test).to.throw(TypeError, /Expected value to be a string/);
+    });
+
     it('should add withArgs function to Spied Function', () => {
       austin.spy(testSubject, 'test');
 

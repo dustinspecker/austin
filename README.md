@@ -53,6 +53,9 @@ testSubject.testFunction.calledWith('blue');
 testSubject.test.returns('a fake value');
 testSubject.test();
 // => 'a fake value'
+testSubject.test.throws(TypeError, 'Expected value to be a string');
+testSubject.test();
+// => TypeError: Expected value to be a string
 
 // And can intercept the return value of the Spied Function with specific parameters
 testSubject.test.withArgs('austin').returns('powers');
@@ -181,6 +184,22 @@ new value passed to `returns` will override the previous value.
 Type: `*`
 
 Any value that is desired to be returned by spiedFunction().
+
+### spiedFunction.throws(errorType[, message])
+
+When spiedFunction is called, it will throw an error instance of `errorType` with an optional message `message`.
+
+#### errorType
+
+Type: `Error`
+
+An instance of Error to be thrown.
+
+#### message
+
+Type: `String`
+
+An optional message to throw error with.
 
 ### spiedFunction.withArgs(params)
 
