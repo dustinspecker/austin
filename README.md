@@ -189,6 +189,10 @@ Any value that is desired to be returned by spiedFunction().
 
 When spiedFunction is called, it will throw an error instance of `errorType` with an optional message `message`.
 
+Note: returns spiedFunction for easy chaining with [withArgs](#spiedfunctionwithargsparams).
+
+Note: `spiedFunction.throws` has priority over `spiedFunction.returns` regardless of order called.
+
 #### errorType
 
 Type: `Error`

@@ -140,10 +140,13 @@ function spy(obj, methodName) {
    * Set error to be thrown when Spied Function is called
    * @param {Error} errorType - type of error to throw
    * @param {String} [message] - message to throw error with
+   * @return {Object} - Spied Function is returned for easy chaining
    */
   spiedFn.throws = function (errorType, message) {
     spyReturn.Type = errorType;
     spyReturn.message = message;
+
+    return spiedFn;
   };
 
   /**
