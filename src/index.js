@@ -57,6 +57,10 @@ function spy(obj, methodName) {
 
     for (i = 0; i < withArgsReturns.length; i++) {
       if (deepEqual(withArgsReturns[i].params, args)) {
+        if (withArgsReturns[i].Type) {
+          throw new withArgsReturns[i].Type(withArgsReturns[i].message);
+        }
+
         return withArgsReturns[i].value;
       }
     }
@@ -184,6 +188,30 @@ function spy(obj, methodName) {
 
         if (!found) {
           withArgsReturns.push({params, value});
+        }
+
+        return spiedFn;
+      },
+
+      /**
+       * Set error to be thrown when Spied Function is called with params
+       * @param {Error} errorType - type of error to throw
+       * @param {String} [message] - message to throw error with
+       * @return {Object} - Spied Function is returned for easy chaining
+       */
+      throws(errorType, message) {
+        let found = false;
+
+        withArgsReturns.forEach(withArgs => {
+          if (deepEqual(withArgs.params, params)) {
+            withArgs.Type = errorType;
+            withArgs.message = message;
+            found = true;
+          }
+        });
+
+        if (!found) {
+          withArgsReturns.push({params, Type: errorType, message});
         }
 
         return spiedFn;

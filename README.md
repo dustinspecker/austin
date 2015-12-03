@@ -207,9 +207,9 @@ An optional message to throw error with.
 
 ### spiedFunction.withArgs(params)
 
-Returns an object with a [returns](#spiedfunctionreturnsvalue) method to fake return values of calls to spiedFunction with params and [callCount](#spiedfunctioncallcount).
+Returns an object with a [returns](#spiedfunctionreturnsvalue) method to fake return values of calls to spiedFunction with params and [callCount](#spiedfunctioncallcount) and a [throws](#spiedfunctionthrowserrortypes-message) to throw errors when spiedFunction is called with params.
 
-Note: `spiedFunction.withArgs(...).returns(...)` returns spiedFunction for easy chaining like `spiedFunction.withArgs(...).returns(...).withArgs(...).returns(...)`.
+Note: `spiedFunction.withArgs(...).returns(...)` and `spiedFunction.withArgs(...).throws(...)` return spiedFunction for easy chaining like `spiedFunction.withArgs(...).returns(...).withArgs(...).returns(...)`.
 
 #### params
 

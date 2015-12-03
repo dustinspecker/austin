@@ -212,6 +212,25 @@ describe('austin', () => {
       expect(testSubject.test()).to.eql(undefined);
     });
 
+    it('should throw error for withArgs->throws setup', () => {
+      austin.spy(testSubject, 'test');
+      testSubject.test
+        .withArgs('hi').throws(TypeError)
+        .withArgs('hi').throws(SyntaxError)
+        .withArgs('austin').throws(TypeError, 'Expected value to be a string');
+
+      function hiTest() {
+        testSubject.test('hi');
+      }
+
+      function austinTest() {
+        testSubject.test('austin');
+      }
+
+      expect(hiTest).to.throw(SyntaxError);
+      expect(austinTest).to.throw(TypeError, 'Expected value to be a string');
+    });
+
     it('should override withArgs->returns value when called more than once', () => {
       austin.spy(testSubject, 'test');
 
