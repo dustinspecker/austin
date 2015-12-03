@@ -18,8 +18,9 @@ module.exports = {
  */
 function spy(obj, methodName) {
   let isNewSpy = !arguments.length
+    , spyReturn = {}
     , withArgsReturns = []
-    , originalFn, returnValue, spiedFn;
+    , originalFn, spiedFn;
 
   if (isNewSpy) {
     obj = {
@@ -60,7 +61,7 @@ function spy(obj, methodName) {
       }
     }
 
-    return returnValue || originalFn(...args);
+    return spyReturn.value || originalFn(...args);
   };
 
   spiedFn = obj[methodName];
@@ -99,12 +100,12 @@ function spy(obj, methodName) {
   /**
    * Resets spy analytics and fake values
    *  - calls = []
-   *  - returnValue = undefined
+   *  - spyReturn = {}
    *  - withArgsReturns = []
    */
   spiedFn.reset = function () {
     spiedFn.calls = [];
-    returnValue = undefined;
+    spyReturn = {};
     withArgsReturns = [];
   };
 
@@ -126,7 +127,7 @@ function spy(obj, methodName) {
    * @return {Object} - Spied Function is returned for easy chaining
    */
   spiedFn.returns = function (value) {
-    returnValue = value;
+    spyReturn.value = value;
 
     return spiedFn;
   };
