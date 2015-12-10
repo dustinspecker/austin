@@ -8,8 +8,8 @@ module.exports = {
 /*
  * Adds spy related utilities to obj[methodName] or creates a new Spied Function
  *
- * If obj and methodName are not passed, a Spied Function is created with the same
- * features as a normal Spied Function created from obj and methodName.
+ * If obj and methodName are not passed, a Spied Function is created with the
+ * same features as a normal Spied Function created from obj and methodName.
  *
  * @throws {TypeError} - if obj is null or undefined
  * @param {Object} [obj] - the object that has the method to spy on
@@ -17,12 +17,13 @@ module.exports = {
  * @return {Object} - return Spied Function for easy chaining
  */
 function spy(obj, methodName) {
-  let isNewSpy = !arguments.length
-    , spyReturn = {}
+  const isNewSpy = !arguments.length;
+  let spyReturn = {}
     , withArgsReturns = []
     , originalFn, spiedFn;
 
   if (isNewSpy) {
+    /* eslint no-param-reassign: 0 */
     obj = {
       spy() {}
     };
@@ -93,8 +94,8 @@ function spy(obj, methodName) {
    * @return {Boolean} - if Spied function was called with params
    */
   spiedFn.calledWith = function (...params) {
-    let calls = spiedFn.calls
-      , i;
+    const calls = spiedFn.calls;
+    let i;
 
     for (i = 0; i < calls.length; i++) {
       if (deepEqual(calls[i], params, {strict: true})) {

@@ -24,15 +24,15 @@ let watching = false;
 
 gulp.task('clean', () => del(destDir));
 
-gulp.task('alex', () => {
-  return gulp.src('./README.md')
+gulp.task('alex', () =>
+  gulp.src('./README.md')
     .pipe(alex())
     .pipe(alex.reporter())
-    .pipe(alex.reporter('fail'));
-});
+    .pipe(alex.reporter('fail'))
+);
 
-gulp.task('lint', ['alex'], () => {
-  return gulp.src([configFiles, srcFiles, testFiles])
+gulp.task('lint', ['alex'], () =>
+  gulp.src([configFiles, srcFiles, testFiles])
     .pipe(eslint())
     .pipe(eslint.formatEach('./node_modules/eslint-path-formatter'))
     .pipe(gulpIf(!watching, eslint.failOnError()))
@@ -41,25 +41,25 @@ gulp.task('lint', ['alex'], () => {
     .pipe(jscs.reporter('fail'))
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(gulpIf(!watching, jshint.reporter('fail')));
-});
+    .pipe(gulpIf(!watching, jshint.reporter('fail')))
+);
 
-gulp.task('compile', ['clean', 'lint'], () => {
-  return gulp.src(srcFiles)
+gulp.task('compile', ['clean', 'lint'], () =>
+  gulp.src(srcFiles)
     .pipe(babel())
-    .pipe(gulp.dest(destDir));
-});
+    .pipe(gulp.dest(destDir))
+);
 
 gulp.task('build', ['compile']);
 
-gulp.task('pre:test', ['build'], () => {
-  return gulp.src([destDir + '**/*.js'])
+gulp.task('pre:test', ['build'], () =>
+  gulp.src([`${destDir}**/*.js`])
     .pipe(istanbul())
-    .pipe(istanbul.hookRequire());
-});
+    .pipe(istanbul.hookRequire())
+);
 
-gulp.task('test', ['pre:test'], () => {
-  return gulp.src([testFiles])
+gulp.task('test', ['pre:test'], () =>
+  gulp.src([testFiles])
     .pipe(gulpIf(watching, plumber()))
     .pipe(mocha({
       compilers: {
@@ -71,8 +71,8 @@ gulp.task('test', ['pre:test'], () => {
       // Something in this task changes the process CWD and causes chaos.
       // This line changes back to the original CWD.
       process.chdir(cwd);
-    });
-});
+    })
+);
 
 gulp.task('watch', () => {
   watching = true;

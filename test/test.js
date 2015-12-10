@@ -300,19 +300,23 @@ describe('austin', () => {
       expect(testSubject.test.withArgs).to.eql(undefined);
     });
 
-    it('should be able to set a value to a spy', () => {
-      let x = austin.spy();
+    describe('new spy', () => {
+      let x;
 
-      x.returns(7);
+      beforeEach(() => {
+        x = austin.spy();
+      });
 
-      expect(x()).to.eql(7);
-      expect(x.callCount()).to.eql(1);
-    });
+      it('should be able to set a value to a spy', () => {
+        x.returns(7);
 
-    it('should throw error if trying to restore a new spy', () => {
-      let x = austin.spy();
+        expect(x()).to.eql(7);
+        expect(x.callCount()).to.eql(1);
+      });
 
-      expect(x.restore).to.throw(Error, 'Cannot restore a new spy');
+      it('should throw error if trying to restore a new spy', () => {
+        expect(x.restore).to.throw(Error, 'Cannot restore a new spy');
+      });
     });
   });
 });
