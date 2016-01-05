@@ -277,6 +277,17 @@ describe('austin', () => {
       expect(testSubject.test.callCount()).to.eql(3);
     });
 
+    it('should retain original function\'s properties', () => {
+      testSubject.fancy = function () {};
+      testSubject.fancy.hello = function () {
+        return 'hi';
+      };
+
+      austin.spy(testSubject, 'fancy');
+
+      expect(testSubject.fancy.hello()).to.eql('hi');
+    });
+
     it('should return Spied Function on initial spy for easy chaining', () => {
       austin.spy(testSubject, 'test').returns('dog');
 

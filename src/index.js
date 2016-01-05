@@ -75,6 +75,11 @@ function spy(obj, methodName) {
 
   spiedFn = obj[methodName];
 
+  // attach originalFn's properties
+  Object.keys(originalFn).forEach(key => {
+    spiedFn[key] = originalFn[key];
+  });
+
   /**
    * Number of times obj[methodName] has been executed
    * @return {Number} - number of times called
