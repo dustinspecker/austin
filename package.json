@@ -38,7 +38,7 @@
     "eslint-plugin-new-with-error": "^1.1.0",
     "eslint-plugin-no-use-extend-native": "^0.3.1",
     "gulp": "^3.9.0",
-    "gulp-alex": "^2.0.0",
+    "gulp-alex": "^3.0.0",
     "gulp-babel": "^6.0.0",
     "gulp-eslint": "^1.0.0",
     "gulp-if": "^2.0.0",
