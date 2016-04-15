@@ -12,15 +12,16 @@ import deepEqual from 'deep-equal'
  * @param {*} [methodName] - obj[methodName] must be a function and will be spied on
  * @return {Object} - return Spied Function for easy chaining
  */
-const spy = function (obj, methodName) {
-  const isNewSpy = !arguments.length
-  let spyReturn = {}
+const spy = function (...spyArgs) {
+  const isNewSpy = !spyArgs.length
+  let [obj, methodName] = spyArgs
+    , spyReturn = {}
     , withArgsReturns = []
 
   if (isNewSpy) {
     /* eslint no-param-reassign: 0 */
     obj = {
-      spy() {}
+      spy: () => undefined
     }
 
     methodName = 'spy'

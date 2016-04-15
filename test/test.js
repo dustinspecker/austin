@@ -9,7 +9,7 @@ describe('austin', () => {
 
     beforeEach(() => {
       testSubject = {
-        test() {}
+        test: () => undefined
       }
     })
 
@@ -73,7 +73,8 @@ describe('austin', () => {
     it('should reset spy analytics and fake values when reset is called', () => {
       austin.spy(testSubject, 'test')
       testSubject.test.returns(7)
-        .withArgs('austin').returns('powers')
+        .withArgs('austin')
+          .returns('powers')
 
       testSubject.test()
       testSubject.test.reset()
@@ -209,9 +210,12 @@ describe('austin', () => {
     it('should throw error for withArgs->throws setup', () => {
       austin.spy(testSubject, 'test')
       testSubject.test
-        .withArgs('hi').throws(TypeError)
-        .withArgs('hi').throws(SyntaxError)
-        .withArgs('austin').throws(TypeError, 'Expected value to be a string')
+        .withArgs('hi')
+          .throws(TypeError)
+        .withArgs('hi')
+          .throws(SyntaxError)
+        .withArgs('austin')
+          .throws(TypeError, 'Expected value to be a string')
 
       const hiTest = () => testSubject.test('hi')
 
@@ -234,8 +238,10 @@ describe('austin', () => {
       austin.spy(testSubject, 'test')
 
       testSubject.test
-        .withArgs('hi').returns('bye')
-        .withArgs('austin').returns('powers')
+        .withArgs('hi')
+          .returns('bye')
+        .withArgs('austin')
+          .returns('powers')
 
       expect(testSubject.test('hi')).to.eql('bye')
       expect(testSubject.test('austin')).to.eql('powers')
@@ -247,7 +253,8 @@ describe('austin', () => {
       austin.spy(testSubject, 'test')
 
       testSubject.test.returns('bye')
-        .withArgs('austin').returns('powers')
+        .withArgs('austin')
+        .returns('powers')
 
       expect(testSubject.test()).to.eql('bye')
       expect(testSubject.test('austin')).to.eql('powers')
@@ -268,7 +275,7 @@ describe('austin', () => {
     })
 
     it('should retain original function\'s properties', () => {
-      testSubject.fancy = function () {}
+      testSubject.fancy = () => undefined
       testSubject.fancy.hello = function () {
         return 'hi'
       }
